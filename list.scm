@@ -1,29 +1,38 @@
-(define (Visit tree)
-	(getType(car tree)(cdr tree))
-	
+(define (Visit base)
+	(cond(( equal? "S" (getType (car base))) 
+		     (parseStatementsNode base))
+		  (( equal? "W" (getType (car base)))
+			 (parseWhileNode base))
+		  (else
+			 (display "O: ")
+			 (parseOperands base)))  
+	base
 )
-(define (getType NodeSymbol Nodes)
-	(cond (( equal? "S" NodeSymbol)
-		      (display "STATMENTS NODE")
-		      (parseStatementsNode Nodes))	
-		   ((equal?  "W" NodeSymbol)
-		      (display "While     Node"))
-		   (else
-				(parseOperands Nodes)
-		   )
-	)
+
+(define (getType Node)
+	; Assumes that it is passed a non-null value
+	; that contians a single list.
+	(cond(( equal? "S" Node)
+		     (display "Statement Node")
+			 (newline))
+		  (( equal? "W" Node)
+			 (display "While Node")
+			 (newline))
+		  ( else
+		     (display "Unrecognized option. What did y'all do..."))) 			 
+	Node
 )
 
 (define (parseStatementsNode NodeQueue)
 	(newline)
-	( cond (( null? NodeQueue)
-		(display "NULL LIST WHEN TRYING TO PARSE STATEMENTS NODE"))
-		(else
+	(cond(( null? NodeQueue)
+		    (display "NULL LIST WHEN TRYING TO PARSE STATEMENTS NODE"))
+		 (else
 			(display "NOT NULL")
 			(newline)
 			;(display (car NodeQueue))
 			(newline)
-			(parseQueue NodeQueue)	
+			(parseQueue (cdr NodeQueue))	
 	  ))
 )
 (define (parseQueue childQueue)
@@ -36,13 +45,13 @@
 	;Getting the next list item
 	;( getType (car(childQueue)) (car childQueue))
 	(cond ((null? childQueue)
-		 (display "Nothing to see here, errything's all parsed"))
+		     (display "Nothing to see here, errything's all parsed"))
 	(else
-		(display "A valid queue") 
-		(newline)
-		;(parseQueue(cdr childQueue)))
-		(getType (car(car(car childQueue))) (car(car childQueue)) )	
-		(car(car ChildQueue))))
+		(Visit (car(car childQueue)))))
+		;(display " ****")
+		;(display (car(car childQueue)))
+		;(display "*****"))
+		;(car(car childQueue))))
 )
 (define (parseOperands Nodes)
 	;TOADD, needs to accept all types of registers
@@ -57,6 +66,13 @@
 	))
 	
 	;(display "")
+	(newline)
+)
+(define (parseWhileNode Node)
+	( display "WN stuff")
+	(newline)
+	(display Node)
+	(newline)
 	(newline)
 )
 (define tree '("S" (
