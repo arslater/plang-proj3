@@ -35,8 +35,14 @@
 
 	;Getting the next list item
 	;( getType (car(childQueue)) (car childQueue))
-	(getType (car(car(car childQueue))) (car(car childQueue)) )
-	;(car(car ChildQueue))
+	(cond ((null? childQueue)
+		 (display "Nothing to see here, errything's all parsed"))
+	(else
+		(display "A valid queue") 
+		(newline)
+		;(parseQueue(cdr childQueue)))
+		(getType (car(car(car childQueue))) (car(car childQueue)) )	
+		(car(car ChildQueue))))
 )
 (define (parseOperands Nodes)
 	;TOADD, needs to accept all types of registers
