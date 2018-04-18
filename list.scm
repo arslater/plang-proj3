@@ -2,13 +2,15 @@
 	(getType(car tree)(cdr tree))
 	
 )
-(define (getType Node tree)
-	(cond (( equal? "S" Node)
-		   (display "STATMENTS NODE")
-		   (parseStatementsNode tree))	
-		   ((equal?  "W" Node)
-		   (display "While     Node"))
-		   (else "tf you doin'?"    )
+(define (getType NodeSymbol Nodes)
+	(cond (( equal? "S" NodeSymbol)
+		      (display "STATMENTS NODE")
+		      (parseStatementsNode Nodes))	
+		   ((equal?  "W" NodeSymbol)
+		      (display "While     Node"))
+		   (else
+				(parseOperands Nodes)
+		   )
 	)
 )
 
@@ -32,7 +34,24 @@
 	; is it going / what is the next Node all 'bout
 
 	;Getting the next list item
-	(cdr(car childQueue))
+	;( getType (car(childQueue)) (car childQueue))
+	(getType (car(car(car childQueue))) (car(car childQueue)) )
+	;(car(car ChildQueue))
+)
+(define (parseOperands Nodes)
+	;TOADD, needs to accept all types of registers
+	(cond(( equal? "-" (car Nodes))
+			(display "#:") 
+		    (display "sub R")
+		    (display (car(cdr(car(cdr Nodes))))) ;first parameter
+			(display " ")
+			(display(car Nodes))
+			(display " R")
+			(display (car(cdr(car(cdr(cdr Nodes))))))
+	))
+	
+	;(display "")
+	(newline)
 )
 (define tree '("S" (
      ("-" ("A" 3333) ("A" 4444))
