@@ -44,14 +44,29 @@
 
 	;Getting the next list item
 	;( getType (car(childQueue)) (car childQueue))
-	(cond ((null? childQueue)
+	(cond (( not(pair? (car childQueue)))
 		     (display "Nothing to see here, errything's all parsed"))
+		   (( pair? (cdr childQueue))
+		     (Visit (cdr childQueue)))
+		   ;( not(pair? (car childQueue))
+			;  (Visit (cdr childQueue)))
 	(else
-		(Visit (car(car childQueue)))))
-		;(display " ****")
-		;(display (car(car childQueue)))
-		;(display "*****"))
-		;(car(car childQueue))))
+		;(Visit (car childQueue))
+		
+		;(cond (( equal? "S" getType (car(car childQueue)))
+		;	   (parseStatementsNode (car(cdr childQueue))))
+		;	   ( equal? "W" getType (car(car childQueue)))
+		;	   (parseWhileNode (car(cdr chilid	 
+		
+		(display "***")
+		(display childQueue)
+		(display "***")
+		(newline)
+		(Visit childQueue)
+		(parseQueue (car childQueue))))
+
+;> (car(car(cdr(car(cdr t )))))
+;"W"
 )
 (define (parseOperands Nodes)
 	;TOADD, needs to accept all types of registers
